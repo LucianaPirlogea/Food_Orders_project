@@ -34,7 +34,7 @@ namespace Food_Orders
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Food_Orders", Version = "v1" });
             });
-            services.AddDbContext<FoodOrdersContext>(options => options.UseSqlServer("Data Source=LAPTOP-VRLK5JVV;Initial Catalog=Food_Orders;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            services.AddDbContext<FoodOrdersContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FoodOrders;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
