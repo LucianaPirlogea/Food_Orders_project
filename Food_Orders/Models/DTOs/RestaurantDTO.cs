@@ -20,7 +20,7 @@ namespace Food_Orders.Entities.DTOs
             this.Denumire = restaurant.Denumire;
             this.Tip_pret = restaurant.Tip_pret;
             this.Specific = restaurant.Specific;
-            this.Detalii_Contact = this.Detalii_Contact;
+            //this.Detalii_Contact = new Detalii_contactDTO(restaurant.Detalii_Contact);
             this.Meniuri = new List<Meniu>();
         }
     }
