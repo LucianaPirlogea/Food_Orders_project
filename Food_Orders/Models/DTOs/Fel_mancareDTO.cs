@@ -21,8 +21,8 @@ namespace Food_Orders.Models.DTOs
             this.Denumire = mancare.Denumire;
             this.Cantitate = mancare.Cantitate;
             this.Pret = mancare.Pret;
-            this.Comenzi = new List<Comanda>();
-            this.Meniuri = new List<Meniu>();
+            //this.Comenzi = new List<Comanda>();
+            //this.Meniuri = new List<Meniu>();
         }
     }
 }

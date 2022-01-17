@@ -4,8 +4,10 @@ using Food_Orders.Models.Entities;
 using Food_Orders.Repositories;
 using Food_Orders.Repositories.Detalii_contactRepository;
 using Food_Orders.Repositories.Fel_mancareRepository;
+using Food_Orders.Repositories.MeniuRepository;
 using Food_Orders.Repositories.RestaurantRepository;
 using Food_Orders.Seed;
+using Food_Orders.Services.RestaurantService;
 using Food_Orders.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -51,6 +53,7 @@ namespace Food_Orders
             services.AddTransient<IRestaurantRepository, RestaurantRepository>();
             services.AddTransient<IDetalii_contactRepository, Detalii_contactRepository>();
             services.AddTransient<IFel_mancareRepository, Fel_mancareRepository>();
+            services.AddTransient<IMeniuRepository, MeniuRepository>();
 
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
@@ -91,6 +94,7 @@ namespace Food_Orders
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<IRestaurantService, RestaurantService>();
             services.AddScoped<SeedDb>();
         }
 

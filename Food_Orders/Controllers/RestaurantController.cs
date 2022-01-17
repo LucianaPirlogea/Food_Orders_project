@@ -7,21 +7,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Food_Orders.Entities;
+using Food_Orders.Repositories.Fel_mancareRepository;
+using Food_Orders.Repositories.MeniuRepository;
+using Food_Orders.Services.RestaurantService;
+using Food_Orders.Models.DTOs;
 
 namespace Food_Orders.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+   
     public class RestaurantController : ControllerBase
     {
         private readonly IRestaurantRepository _repository;
         private readonly IDetalii_contactRepository _repository2;
-
-        public RestaurantController(IRestaurantRepository repository, IDetalii_contactRepository repository2)
+        private readonly IFel_mancareRepository _repository3;
+        private readonly IMeniuRepository _repository4;
+        private readonly IRestaurantService _serviceRestaurant;
+        public RestaurantController(IRestaurantRepository repository, IDetalii_contactRepository repository2, IFel_mancareRepository repository3, IMeniuRepository repository4, IRestaurantService serviceRestaurant)
         {
             _repository = repository;
             _repository2 = repository2;
+            _repository3 = repository3;
+            _repository4 = repository4;
+            _serviceRestaurant = serviceRestaurant;
         }
 
         [HttpGet]
@@ -47,21 +57,23 @@ namespace Food_Orders.Controllers
             return Ok(restaurantsToReturn);
         }
 
+        
+
         [HttpGet("{name}")]
-
-        public async Task<IActionResult> GetRestaurantByName(string name)
+        public async Task<IActionResult> GetMenuByRestaurantName(string name)
         {
-            var restaurant = await _repository.GetByName(name);
+            var restaurant = await _serviceRestaurant.GetRestaurantByName(name);
+            var menus = new List<Meniu>();
+            menus = await _repository4.GetAllMenusByRestaurantId(restaurant.Id);
+            var feluri = new List<Fel_mancareDTO>();
 
-            var restaurantToReturn = new RestaurantDTO(restaurant);
-            var contact2 = await _repository2.GetByRestaurantId(restaurantToReturn.Id);
-            if (contact2 != null)
+            foreach (var menu in menus)
             {
-                var contact = new Detalii_contactDTO(contact2);
-                restaurantToReturn.Detalii_Contact = contact;
+                var aux_fel_mancare = await _repository3.GetByIdAsync(menu.Fel_mancareId);
+                var fel_mancare = new Fel_mancareDTO(aux_fel_mancare);
+                feluri.Add(fel_mancare);
             }
-
-            return Ok(restaurantToReturn);
+            return Ok(feluri);
         }
     }
 }
