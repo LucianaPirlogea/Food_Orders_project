@@ -35,6 +35,7 @@ namespace Food_Orders.Controllers
         }
 
         [HttpGet]
+        //[Authorize(Roles = "User")]
         public async Task<IActionResult> GetAllRestaurants()
         {
             var restaurants = await _repository.GetAllRestaurantsWithContact();
@@ -63,17 +64,24 @@ namespace Food_Orders.Controllers
         public async Task<IActionResult> GetMenuByRestaurantName(string name)
         {
             var restaurant = await _serviceRestaurant.GetRestaurantByName(name);
-            var menus = new List<Meniu>();
-            menus = await _repository4.GetAllMenusByRestaurantId(restaurant.Id);
             var feluri = new List<Fel_mancareDTO>();
-
-            foreach (var menu in menus)
+            if (restaurant != null)
             {
-                var aux_fel_mancare = await _repository3.GetByIdAsync(menu.Fel_mancareId);
-                var fel_mancare = new Fel_mancareDTO(aux_fel_mancare);
-                feluri.Add(fel_mancare);
+                var menus = new List<Meniu>();
+                menus = await _repository4.GetAllMenusByRestaurantId(restaurant.Id);
+                
+
+                foreach (var menu in menus)
+                {
+                    var aux_fel_mancare = await _repository3.GetByIdAsync(menu.Fel_mancareId);
+                    var fel_mancare = new Fel_mancareDTO(aux_fel_mancare);
+                    feluri.Add(fel_mancare);
+                }
+                
             }
+
             return Ok(feluri);
+
         }
     }
 }

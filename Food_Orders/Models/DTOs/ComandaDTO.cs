@@ -1,12 +1,13 @@
-﻿using Food_Orders.Models.Entities;
+﻿using Food_Orders.Entities;
+using Food_Orders.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Food_Orders.Entities
+namespace Food_Orders.Models.DTOs
 {
-    public class Comanda
+    public class ComandaDTO
     {
         public int ClientId { get; set; }
         public Client Client { get; set; }

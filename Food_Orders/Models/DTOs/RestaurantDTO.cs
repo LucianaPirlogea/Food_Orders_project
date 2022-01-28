@@ -16,12 +16,16 @@ namespace Food_Orders.Entities.DTOs
 
         public RestaurantDTO(Restaurant restaurant)
         {
-            this.Id = restaurant.Id;
-            this.Denumire = restaurant.Denumire;
-            this.Tip_pret = restaurant.Tip_pret;
-            this.Specific = restaurant.Specific;
-            //this.Detalii_Contact = new Detalii_contactDTO(restaurant.Detalii_Contact);
-            //this.Meniuri = new List<Meniu>();
+            if (restaurant != null)
+            {
+                this.Id = restaurant.Id;
+                this.Denumire = restaurant.Denumire;
+                this.Tip_pret = restaurant.Tip_pret;
+                this.Specific = restaurant.Specific;
+                //this.Detalii_Contact = new Detalii_contactDTO(restaurant.Detalii_Contact);
+                //this.Meniuri = new List<Meniu>();
+            }
+
         }
     }
 }

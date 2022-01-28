@@ -44,7 +44,7 @@ namespace Food_Orders.Controllers
                 return Ok(result);
             }
 
-            return BadRequest();
+            return BadRequest("Nu s-au bagat bine date");
         }
 
         [HttpPost("login")]

@@ -34,10 +34,9 @@ namespace Food_Orders.Services.UserService
 
             registerUser.Email = dto.Email;
             registerUser.UserName = dto.Email;
-            registerUser.Nume = dto.Nume;
-            registerUser.Prenume = dto.Prenume;
-            registerUser.Nr_telefon = dto.Nr_telefon;
-            registerUser.Adrese = new List<Adresa>();
+            
+            
+            //registerUser.Adrese = new List<Adresa>();
 
             var result = await _userManager.CreateAsync(registerUser, dto.Password);
 
@@ -81,7 +80,6 @@ namespace Food_Orders.Services.UserService
             var subject = new ClaimsIdentity(new Claim[]
             {
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Name, user.Prenume + " " + user.Nume),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, newJti)
             });

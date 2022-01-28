@@ -12,8 +12,8 @@ namespace Food_Orders.Entities
         public string Strada { get; set; }
         public int Numar { get; set; }
         public string Oras { get; set; }
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public int ClientId { get; set; }
+        public Client Client { get; set; }
 
     }
 }

@@ -16,8 +16,9 @@ namespace Food_Orders.Data
     {
         public FoodOrdersContext(DbContextOptions<FoodOrdersContext> options) : base(options) { }
 
-        //override public DbSet<User> Users { get; set; }
+    
         public DbSet<SessionToken> SessionTokens { get; set; }
+        public DbSet<Client> Clienti { get; set; }
         public DbSet<Adresa> Adrese { get; set; }
         public DbSet<Fel_mancare> Feluri_mancare { get; set; }
         public DbSet<Restaurant> Restaurante { get; set; }
@@ -28,9 +29,9 @@ namespace Food_Orders.Data
         {
             // One to Many
 
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<Client>()
                 .HasMany(a => a.Adrese)
-                .WithOne(b => b.User);
+                .WithOne(b => b.Client);
 
             // One to One
 
@@ -39,12 +40,12 @@ namespace Food_Orders.Data
                 .WithOne(adr => adr.Restaurant);
 
             // Many to Many
-            modelBuilder.Entity<Comanda>().HasKey(arp => new { arp.UserId, arp.Fel_mancareId });
+            modelBuilder.Entity<Comanda>().HasKey(arp => new { arp.ClientId, arp.Fel_mancareId });
 
             modelBuilder.Entity<Comanda>()
-                .HasOne(arp => arp.User)
+                .HasOne(arp => arp.Client)
                 .WithMany(a => a.Comenzi)
-                .HasForeignKey(arp => arp.UserId);
+                .HasForeignKey(arp => arp.ClientId);
 
             modelBuilder.Entity<Comanda>()
                 .HasOne(arp => arp.Fel_mancare)
